@@ -1,0 +1,6 @@
+pillow
+pyTelegramBotAPI
+qrcode
+requests
+python-dotenv
+python-dateutil
