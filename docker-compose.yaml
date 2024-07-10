@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  hiddifybot:
+    build: .
+    ports:
+      - "88:88"
+    env_file:
+      - /opt/Hiddify-Bot/.env
+    container_name: hiddifybot
