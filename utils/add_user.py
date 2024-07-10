@@ -13,18 +13,29 @@ def add_user_name(bot, message):
 def add_user_package_days(message, bot):
     name = message.text
     bot.reply_to(message, lang.get_string("FA", "ADDDAYS"))
-    bot.register_next_step_handler(message, add_user_usage_limit, bot, name)
+    bot.register_next_step_handler(message, validate_package_days, bot, name)
 
-def add_user_usage_limit(message, bot, name):
-    package_days = message.text
-    bot.reply_to(message, lang.get_string("FA", "ADDGB"))
-    bot.register_next_step_handler(message, add_user_complete, bot, name, package_days)
+def validate_package_days(message, bot, name):
+    if message.text.isnumeric():
+        package_days = message.text
+        bot.reply_to(message, lang.get_string("FA", "ADDGB"))
+        bot.register_next_step_handler(message, validate_usage_limit, bot, name, package_days)
+    else:
+        bot.reply_to(message, lang.get_string("FA", "INVALIDDAYS"))
+        bot.register_next_step_handler(message, validate_package_days, bot, name)
 
-def add_user_complete(message, bot, name, package_days):
-    usage_limit = message.text
+def validate_usage_limit(message, bot, name, package_days):
+    try:
+        usage_limit = float(message.text)
+        add_user_complete(message, bot, name, package_days, usage_limit)
+    except ValueError:
+        bot.reply_to(message, lang.get_string("FA", "INVALIDGB"))
+        bot.register_next_step_handler(message, validate_usage_limit, bot, name, package_days)
+
+def add_user_complete(message, bot, name, package_days, usage_limit):
     uuid = hiddify_api.generate_uuid()
     telegram_id = message.chat.id
-    success = hiddify_api.add_service(uuid, "", name, int(package_days), float(usage_limit), telegram_id)
+    success = hiddify_api.add_service(uuid, "", name, int(package_days), usage_limit, telegram_id)
     if success:
         user_data = hiddify_api.find_service(uuid)
         sublink_data = f"{hiddify_api.sublinkurl}/{uuid}"
