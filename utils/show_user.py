@@ -47,6 +47,7 @@ def show_user(message, bot):
         
         sublink = f"{hiddify_api.sublinkurl}/{uuid}"
         qr_code = hiddify_api.generate_qr_code(sublink)
+        web_app_info = types.WebAppInfo(url=sublink)
         if is_authorized_user(message.from_user.id):
             delete_button = types.InlineKeyboardButton(text="Delete", callback_data=f"delete:{uuid}")
             reset_user_button = types.InlineKeyboardButton(text="Reset User", callback_data=f"reset_user:{uuid}")
@@ -56,12 +57,12 @@ def show_user(message, bot):
             inline_keyboard = types.InlineKeyboardMarkup(row_width=2)
             inline_keyboard.add(delete_button, reset_user_button)
             inline_keyboard.add(reset_days_button, reset_traffic_button)
-            inline_keyboard.add(types.InlineKeyboardButton(text="Open Sublink", url=sublink))
+            inline_keyboard.add(types.InlineKeyboardButton(text="Open Sublink", web_app=web_app_info))
             
             sent_message = bot.send_photo(message.chat.id, qr_code, caption=user_info, reply_markup=inline_keyboard)
         else:
             unauthorized_keyboard = types.InlineKeyboardMarkup()
-            unauthorized_keyboard.add(types.InlineKeyboardButton(text="Open Sublink", url=sublink))
+            unauthorized_keyboard.add(types.InlineKeyboardButton(text="Open Sublink", web_app=web_app_info))
             
             sent_message = bot.send_photo(message.chat.id, qr_code, caption=user_info, reply_markup=unauthorized_keyboard)
             if message.from_user.id not in hiddify_api.allowed_user_ids:
