@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from telebot import types
 from utils.api import HiddifyApi
+from utils.lang import lang
 from utils.authorization import is_authorized_user
 
 hiddify_api = HiddifyApi()
@@ -68,9 +69,9 @@ def show_user(message, bot):
             if message.from_user.id not in hiddify_api.allowed_user_ids:
                 hiddify_api.tele_id(uuid, message.from_user.id)
     else:
-        bot.reply_to(message, "User not found.")
+        bot.reply_to(message, lang.get_string("FA", "USERERROR"))
 
-    return sent_message
+    # return sent_message
 
 def delete_user_success(bot, chat_id, message_id):
     bot.delete_message(chat_id, message_id)
