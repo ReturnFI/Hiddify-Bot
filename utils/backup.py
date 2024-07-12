@@ -1,6 +1,7 @@
 import io
 from datetime import datetime
 from utils.api import HiddifyApi
+from utils.lang import lang
 
 hiddify_api = HiddifyApi()
 
@@ -15,4 +16,4 @@ def backup(bot, message):
         
         bot.send_document(message.chat.id, backup_bytes_io)
     else:
-        bot.reply_to(message, "Failed to retrieve backup file.")
+        bot.reply_to(message, lang.get_string("FA", "BACKUPERROR"))
