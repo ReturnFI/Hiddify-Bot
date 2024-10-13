@@ -122,4 +122,7 @@ def inline_query(query):
                     input_message_content=types.InputTextMessageContent(response_text, parse_mode='MarkdownV2')
                 )
                 results.append(article)
-    return results
+    
+
+    return bot.answer_inline_query(query.id, results, cache_time=0)
+
