@@ -61,7 +61,7 @@ def handle_inline_query(query):
     if is_authorized_user(query.from_user.id):
         results = inline_query(query.query)
         if results:
-            bot.answer_inline_query(query.id, results)
+            bot.answer_inline_query(query.id, results, cache_time=5)
     else:
         unauthorized_message = types.InlineQueryResultArticle(
             id=lang.get_string("FA", "AUTHORIZED"),
@@ -69,7 +69,7 @@ def handle_inline_query(query):
             description=lang.get_string("FA", "UNAUTHORIZED"),
             input_message_content=types.InputTextMessageContent(lang.get_string("FA", "UNAUTHORIZED"))
         )
-        bot.answer_inline_query(query.id, [unauthorized_message])
+        bot.answer_inline_query(query.id, [unauthorized_message], cache_time=5)
 
 @bot.callback_query_handler(func=lambda call: True)
 def handle_callback_query(call):
