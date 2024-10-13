@@ -15,7 +15,7 @@ To use the bot , you will need the following information:
 1. **Chat ID:** You need to obtain this from the [@userinfobot](https://t.me/userinfobot).
 2. **Admin uuid:** Enter your admin uuid.
 3. **Admin url:** Enter your panel url.(https://example.com/DfLECy9v8KwA09nAYifGEO9T/)
-4. **Admin sublink:** Enter your panel sublink.(https://sublink.example.com/cR4sh1oudvx12NaZOg603/)
+4. **Sublink url:** Enter your panel sublink.(https://sublink.example.com/cR4sh1oudvx12NaZOg603/)
 5. **Bot Token:** You need to obtain this from the [@botfather](https://t.me/BotFather).
 
 ## Installation
