@@ -124,5 +124,5 @@ def inline_query(query):
                 results.append(article)
     
 
-    return bot.answer_inline_query(query.id, results, cache_time=0)
+    return results
 
