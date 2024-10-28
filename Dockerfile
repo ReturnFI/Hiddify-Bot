@@ -9,7 +9,6 @@ RUN apk update && \
     libc-dev \
     libffi-dev \
     openssl-dev \
-    sudo \
     && rm -rf /var/cache/apk/*
 
 COPY requirements.txt requirements.txt
