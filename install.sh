@@ -24,7 +24,7 @@ if [ -d "$install_dir" ]; then
 fi
 sleep 2
 
-git clone -b Dev "$repository_url" "$install_dir"
+git clone "$repository_url" "$install_dir"
 
 cd "$install_dir"
 
