@@ -4,7 +4,6 @@ WORKDIR /app
 
 RUN apk update && \
     apk add --no-cache \
-    gcc \
     musl-dev \
     libc-dev \
     libffi-dev \
