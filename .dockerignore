@@ -1,3 +1,5 @@
 README.md
 LICENSE
 install.sh
+docker-compose.yaml
+Dockerfile
