@@ -6,6 +6,7 @@ from utils.lang import lang
 hiddify_api = HiddifyApi()
 
 def backup(bot, message):
+    bot.send_chat_action(message.chat.id, 'upload_document')
     current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     backup_file_name = f"{current_datetime}.json"
     

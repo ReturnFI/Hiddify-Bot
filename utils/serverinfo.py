@@ -6,6 +6,7 @@ from utils.api import HiddifyApi
 hiddify_api = HiddifyApi()
 
 def get_server_info(bot, message):
+    bot.send_chat_action(message.chat.id, 'typing')
     system_status = hiddify_api.get_system_status()
     if system_status:
         system_info = system_status.get('system', {})

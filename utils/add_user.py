@@ -33,12 +33,13 @@ def validate_usage_limit(message, bot, name, package_days):
         bot.register_next_step_handler(message, validate_usage_limit, bot, name, package_days)
 
 def add_user_complete(message, bot, name, package_days, usage_limit):
+    bot.send_chat_action(message.chat.id, 'upload_photo')
     uuid = hiddify_api.generate_uuid()
     telegram_id = message.chat.id
     success = hiddify_api.add_service(uuid, "", name, int(package_days), usage_limit, telegram_id)
     if success:
         user_data = hiddify_api.find_service(uuid)
-        sublink_data = f"{hiddify_api.sublinkurl}/{uuid}"
+        sublink_data = f"{hiddify_api.sublinkurl}{uuid}/"
         qr_code = hiddify_api.generate_qr_code(sublink_data)
         if user_data:
             user_info = (
