@@ -5,8 +5,8 @@ import uuid
 import qrcode
 from io import BytesIO
 from qrcode.image.styledpil import StyledPilImage
-from qrcode.image.styles.colormasks import RadialGradiantColorMask
-from qrcode.image.styles.moduledrawers.pil import CircleModuleDrawer
+from qrcode.image.styles.moduledrawers import SquareModuleDrawer
+from qrcode.image.styles.colormasks import SolidFillColorMask
 from dotenv import load_dotenv
 import os
 
@@ -233,13 +233,23 @@ class HiddifyApi:
 
     def generate_qr_code(self, data: str) -> BytesIO:
         """Generate a QR code for the given data."""
-        qr = qrcode.QRCode(version=1, box_size=10, border=2)
+        qr = qrcode.QRCode(
+            version=1,
+            box_size=6,
+            border=1
+        )
         qr.add_data(data)
         qr.make(fit=True)
-        qr_img = qr.make_image(fill_color="White", back_color="Transparent", image_factory=StyledPilImage, module_drawer=CircleModuleDrawer(), color_mask=RadialGradiantColorMask())
-        
+        qr_img = qr.make_image(
+            fill_color="black",
+            back_color="white",
+            image_factory=StyledPilImage,
+            module_drawer=SquareModuleDrawer(),
+            color_mask=SolidFillColorMask()
+        )
+
         qr_byte_io = BytesIO()
-        qr_img.save(qr_byte_io, format='PNG')
+        qr_img.save(qr_byte_io, format='PNG', optimize=True)
         qr_byte_io.seek(0)
         
         return qr_byte_io
