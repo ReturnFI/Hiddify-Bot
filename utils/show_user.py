@@ -45,7 +45,7 @@ def parse_online_status(user_data):
     return "❌", last_online_str
 
 def create_inline_buttons(uuid, user_authorized):
-    web_app_info = types.WebAppInfo(url=f"{hiddify_api.sublinkurl}/{uuid}")
+    web_app_info = types.WebAppInfo(url=f"{hiddify_api.sublinkurl}{uuid}/")
     inline_keyboard = types.InlineKeyboardMarkup(row_width=2)
     
     if user_authorized:
@@ -70,7 +70,7 @@ def show_user(message, bot):
         return
 
     user_info = format_user_info(user_data, uuid)
-    qr_code = hiddify_api.generate_qr_code(f"{hiddify_api.sublinkurl}/{uuid}")
+    qr_code = hiddify_api.generate_qr_code(f"{hiddify_api.sublinkurl}{uuid}/")
     inline_buttons = create_inline_buttons(uuid, is_authorized_user(message.from_user.id))
 
     bot.send_photo(message.chat.id, qr_code, caption=user_info, reply_markup=inline_buttons)
@@ -109,14 +109,14 @@ def format_inline_user_result(user):
         f"Package Days: {package_days}\n"
         f"Traffic: {current_usage_gb:.2f} / {usage_limit_gb} GB\n"
         f"Last Online: {last_online_formatted}\n"
-        f"Subscription: [Subscription Link]({hiddify_api.sublinkurl}/{user_uuid}/)"
+        f"Subscription: [Subscription Link]({hiddify_api.sublinkurl}{user_uuid}/)"
     ).replace('.', '\\.')
     
     return types.InlineQueryResultArticle(
         id=user_uuid,
         title=title,
         description=description,
-        url=f"{hiddify_api.sublinkurl}/{user_uuid}/",
+        url=f"{hiddify_api.sublinkurl}{user_uuid}/",
         input_message_content=types.InputTextMessageContent(response_text, parse_mode='MarkdownV2')
     )
 
